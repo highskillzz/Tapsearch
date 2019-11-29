@@ -56,7 +56,7 @@ def removeAll():
     invertedIndex.index = dict()
     invertedIndex.db = db
     invertedIndex.uniqueID = 0
-    return make_response("Recieved the correct response", 200)
+    return make_response("Removed all the documents", 200)
 
 
 @admin.route('/viewall', methods=['GET'])
