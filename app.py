@@ -1,19 +1,15 @@
 from routes import admin
 import os
-from flask import Flask, send_from_directory
+from flask import Flask, render_template
 
-app = Flask(__name__, static_folder='./build')
+app = Flask(__name__, static_folder="build/static", template_folder="build")
 basedir = os.path.abspath(os.path.dirname(__file__))
 app.register_blueprint(admin)
 
 # Serve React App
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
-def serve(path):
-    if path != "" and os.path.exists(app.static_folder + '/' + path):
-        return send_from_directory(app.static_folder, path)
-    else:
-        return send_from_directory(app.static_folder, 'index.html')
+@admin.route("/")
+def hello():
+    return render_template('index.html')
 
 
 if __name__ == "__main__":

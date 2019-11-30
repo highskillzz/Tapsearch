@@ -12,13 +12,13 @@ db = Database()
 invertedIndex = InvertedIndex(db)
 
 
-@admin.route('/', methods=['GET'])
-def starter():
-    return make_response("Recieved the correct response", 200)
-
+@admin.route("/")
+def hello():
+    return render_template('index.html')
 
 # The code below can be better written by adding map to the split and then indexing it directly
 # instead of putting it in again docs variable
+
 
 @admin.route('/addnewdoc', methods=['POST'])
 def addNewDoc():
