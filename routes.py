@@ -22,7 +22,7 @@ def starter():
 
 @admin.route('/addnewdoc', methods=['POST'])
 def addNewDoc():
-    doc = request.form["doc"]
+    doc = request.form["text"]
     if doc:
         docs = []
         doc = doc.replace('\r', '').split('\n\n')
@@ -33,14 +33,14 @@ def addNewDoc():
     return make_response("Recieved the correct response", 200)
 
 
-@admin.route('/search/<query>', methods=['POST'])
-def results(query):
+@admin.route('/search', methods=['POST'])
+def results():
+    query = request.form["text"]
     searchResults = []
     query = query.lower()
     result = invertedIndex.lookup_query(query)
-    print(result)
     if result[query] == None:
-        return make_response('No documents match your search', 200)
+        return make_response(jsonify(list(searchResults)), 200)
     else:
         for term in result.keys():
             for appearance in result[term]:
